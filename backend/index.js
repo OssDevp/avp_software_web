@@ -4,15 +4,16 @@ import conectarDB from "./config/db.js";
 import veterinarioRoutes from "./routes/veterinarioRoutes.js";
 
 const app = Express();
+app.use(Express.json());
 
 dotenv.config();
 
 conectarDB();
 
-app.use("/api/veterinarios", veterinarioRoutes);
+app.use("/", veterinarioRoutes);
 
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
-  console.log(`Listening on port 4000 ${PORT}`);
+  console.log(`Listening on port ${PORT}`);
 })
