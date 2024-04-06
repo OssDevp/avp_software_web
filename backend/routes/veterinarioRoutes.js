@@ -10,10 +10,10 @@ import {
 const router = express.Router();
 
 //publica
-router.post("/api/veterinarios", registrar);
-router.get("/api/veterinarios/confirmar/:token", confirmar);
-router.post("/api/veterinarios/login", autenticar);
-router.post("/api/veterinarios/olvide-password", olvidePassword);
+router.post("/", registrar);
+router.get("/confirmar/:token", confirmar);
+router.post("/login", autenticar);
+router.post("/olvide-password", olvidePassword);
 /* 
 router.post("/api/veterinarios/olvide-password/:token", comprobarToken);
 router.post("/api/veterinarios/olvide-password/:token", nuevoPassword);
