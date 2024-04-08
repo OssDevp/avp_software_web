@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import Alerta from "../components/Alerta";
 
 const Registrar = () => {
@@ -7,10 +8,11 @@ const Registrar = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repetirPassword, setRepetirPassword] = useState('');
+
   const [alerta, setAlerta] = useState({});
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     if ([nombre, email, password, repetirPassword].includes('')) {
@@ -19,7 +21,7 @@ const Registrar = () => {
     }
 
     if (password.length < 6) {
-      setAlerta({ msg: 'La contraseña es muy corta', error: true });
+      setAlerta({ msg: 'La contraseña es muy corta, agrega minimo 6 caracteres', error: true });
       return;
     }
 
@@ -27,9 +29,24 @@ const Registrar = () => {
       setAlerta({ msg: 'Las contraseñas no son iguales', error: true });
       return;
     }
-    console.log('Todo correcto');
-
+    
     setAlerta({});
+      
+    try {
+      const url = 'http://localhost:4000/api/veterinarios/';
+      await axios.post(url, {nombre, email, password});
+      setAlerta({msg: 'Creado Correctamente, revise su correo', error: false});
+    
+      setTimeout(() => {
+        setAlerta({});
+      }, 3000)
+    } catch (error) {
+      setAlerta({
+        msg: error.response.data.msg,
+        error: true
+      })
+    }
+    
   }
 
   const { msg } = alerta; // para que se muestre la alerta

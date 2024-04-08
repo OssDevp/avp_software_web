@@ -18,8 +18,8 @@ router.post("/olvide-password", olvidePassword);
 router.post("/api/veterinarios/olvide-password/:token", comprobarToken);
 router.post("/api/veterinarios/olvide-password/:token", nuevoPassword);
  */ // estas dos lineas de codigo es lo mismo que la siguiente:
-router.route("/api/veterinarios/olvide-password/:token").get(comprobarToken, nuevoPassword);
+router.route("/olvide-password/:token").get(comprobarToken, nuevoPassword);
 //privada
-router.get("/api/veterinarios/perfil", checkAuth, perfil);
+router.get("/perfil", checkAuth, perfil);
 
 export default router;
