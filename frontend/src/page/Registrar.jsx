@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import clienteAxios from "../config/Axios";
 import Alerta from "../components/Alerta";
 
 const Registrar = () => {
@@ -29,14 +29,13 @@ const Registrar = () => {
       setAlerta({ msg: 'Las contraseñas no son iguales', error: true });
       return;
     }
-    
+
     setAlerta({});
-      
+
     try {
-      const url = 'http://localhost:4000/api/veterinarios/';
-      await axios.post(url, {nombre, email, password});
-      setAlerta({msg: 'Creado Correctamente, revise su correo', error: false});
-    
+      await clienteAxios.post('/veterinarios/', { nombre, email, password }); //variable de url para hacer mas corto las url de produccion y desarrollo
+      setAlerta({ msg: 'Creado Correctamente, revise su correo', error: false });
+
       setTimeout(() => {
         setAlerta({});
       }, 3000)
@@ -45,8 +44,11 @@ const Registrar = () => {
         msg: error.response.data.msg,
         error: true
       })
+      setTimeout(() => {
+        setAlerta({});
+      }, 3000)
     }
-    
+
   }
 
   const { msg } = alerta; // para que se muestre la alerta
