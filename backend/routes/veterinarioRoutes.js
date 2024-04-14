@@ -14,11 +14,11 @@ router.post("/", registrar);
 router.get("/confirmar/:token", confirmar);
 router.post("/login", autenticar);
 router.post("/olvide-password", olvidePassword);
-/* 
-router.post("/api/veterinarios/olvide-password/:token", comprobarToken);
-router.post("/api/veterinarios/olvide-password/:token", nuevoPassword);
- */ // estas dos lineas de codigo es lo mismo que la siguiente:
-router.route("/olvide-password/:token").get(comprobarToken, nuevoPassword);
+
+// router.get("/api/veterinarios/olvide-password/:token", comprobarToken);
+// router.get("/api/veterinarios/olvide-password/:token", nuevoPassword);
+// estas dos lineas de codigo es lo mismo que la siguiente:
+router.route("/olvide-password/:token").get(comprobarToken).post(nuevoPassword);
 //privada
 router.get("/perfil", checkAuth, perfil);
 

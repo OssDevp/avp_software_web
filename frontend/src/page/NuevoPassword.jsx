@@ -5,6 +5,7 @@ import clienteAxios from "../config/Axios";
 
 const NuevoPassword = () => {
   const [password, setPassword] = useState('');
+  const [repetirPassword, setRepetirPassword] = useState('');
   const [tokenValido, setTokenValido] = useState(false);
   const [alerta, setAlerta] = useState({});
   const [passwordModificada, setPasswordModificada] = useState(false);
@@ -37,6 +38,14 @@ const NuevoPassword = () => {
     if (password.length < 6) {
       setAlerta({
         msg: 'La contraseña es muy corta, agrega minimo 6 caracteres',
+        error: true
+      })
+      return;
+    }
+
+    if (password !== repetirPassword) {
+      setAlerta({
+        msg: 'Las contraseñas no son iguales',
         error: true
       })
       return;
@@ -86,7 +95,18 @@ const NuevoPassword = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-
+            <div className="my-5">
+              <label className="text-gray-800 uppercase text-xl font-bold mt-3">
+                Repetir Password
+              </label>
+              <input
+                type="password"
+                placeholder="Password"
+                className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
+                value={repetirPassword}
+                onChange={(e) => setRepetirPassword(e.target.value)}
+              />
+            </div>
             <input
               type="submit"
               value="Guardar Password"
