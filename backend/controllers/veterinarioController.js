@@ -77,7 +77,7 @@ const autenticar = async (req, res) => {
     if (await usuario.compararPassword(password)) {
         res.json({ token: generarJWT(usuario.id) })
     } else {
-        const error = new Error("Tu cuenta no ha sido confirmada");
+        const error = new Error("El Password es incorrecto");
         return res.status(403).json({ msg: error.message });
     }
 }

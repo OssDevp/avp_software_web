@@ -54,7 +54,6 @@ const NuevoPassword = () => {
     try {
       const url = `/veterinarios/olvide-password/${token}`;
       const { data } = await clienteAxios.post(url, { password });
-      console.log(data);
       setAlerta({
         msg: data.msg,
         error: false
