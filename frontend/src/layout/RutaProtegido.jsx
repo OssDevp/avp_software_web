@@ -5,12 +5,14 @@ import useAuth from "../hook/useAuth";
 const RegistroProtegido = () => {
   const { auth, cargando } = useAuth();
 
+  console.log(auth);
+
   if (cargando) return "cargando";
 
   return (
     <>
       <Header />
-      {auth.perfil?._id
+      {auth?._id
         ? (
           <main className="container mx-auto mt-10">
             <Outlet />
