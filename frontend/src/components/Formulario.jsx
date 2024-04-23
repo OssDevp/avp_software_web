@@ -1,21 +1,56 @@
 import { useState } from "react"
 import Alerta from "./Alerta";
+import usePacientes from "../hook/usePacientes";
+
 const Formulario = () => {
   const [nombre, setNombre] = useState('');
   const [propietario, setPropietario] = useState('');
   const [email, setEmail] = useState('');
-  const [fecha, setFecha] = useState(Date.now());
+  const [fecha, setFecha] = useState('');
   const [sintomas, setSintomas] = useState('');
 
-  const [alerta, setAlerta] = useState();
+  const [alerta, setAlerta] = useState({});
+
+  const { guardarPaciente } = usePacientes();
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    //validar formulario
+    if ([nombre, propietario, email, fecha, sintomas].includes('')) {
+      setAlerta({
+        msg: 'Todos los campos son obligatorios',
+        error: true
+      })
+      return;
+    }
+
+    setAlerta({
+      msg: 'Agregado Correctamente',
+      error: false
+    });
+    setTimeout(() => {
+      setAlerta({})
+    }, 3000);
+    //crear el objeto paciente
+    guardarPaciente({
+      nombre,
+      propietario,
+      email,
+      fecha,
+      sintomas
+    })
+  }
+
+  const { msg } = alerta;
 
   return (
     <>
       <p className="text-center text-lg mb-10 font-bold">
         Añade tus pacientes y <span className="text-indigo-600">Administralos</span>
       </p>
-      <form action=""
+      <form
         className="bg-white py-10 px-5 mb-10 lg:mb-0 shadow rounded-md"
+        onSubmit={handleSubmit}
       >
         <div className="mb-5">
           <label
@@ -93,6 +128,9 @@ const Formulario = () => {
           value="Registrar Cita"
         />
       </form>
+      <div className="mt-5">
+        {msg && <Alerta alerta={alerta} />}
+      </div>
     </>
   )
 }
