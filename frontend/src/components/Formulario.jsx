@@ -8,19 +8,17 @@ const Formulario = () => {
   const [email, setEmail] = useState('');
   const [fecha, setFecha] = useState('');
   const [sintomas, setSintomas] = useState('');
-  const [id, setId] = useState('');
+  const [id, setId] = useState(null);
 
   const [alerta, setAlerta] = useState({});
 
   const { guardarPaciente, paciente } = usePacientes();
-
-  console.log(paciente);
   useEffect(() => {
     if (paciente?.nombre) {
       setNombre(paciente.nombre)
       setPropietario(paciente.propietario)
       setEmail(paciente.email)
-      setFecha(paciente.fecha)
+      setFecha(new Date(paciente.fecha).toISOString())
       setSintomas(paciente.sintomas)
       setId(paciente._id)
     }
@@ -38,7 +36,7 @@ const Formulario = () => {
     }
 
     setAlerta({
-      msg: 'Agregado Correctamente',
+      msg: 'Guardado Correctamente',
       error: false
     });
     setTimeout(() => {
@@ -53,6 +51,14 @@ const Formulario = () => {
       sintomas,
       id
     })
+
+    //reiniciar el formulario
+    setNombre('')
+    setPropietario('')
+    setEmail('')
+    setFecha('')
+    setSintomas('')
+    setId(null)
   }
 
   const { msg } = alerta;

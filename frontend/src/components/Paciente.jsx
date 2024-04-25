@@ -1,7 +1,7 @@
 import usePacientes from "../hook/usePacientes";
 const Paciente = ({ paciente }) => {
 
-  const { setEdicion } = usePacientes();
+  const { setEdicion, eliminarPaciente } = usePacientes();
 
   const { nombre, propietario, email, fecha, sintomas, _id } = paciente;
   const formatearFecha = (fecha) => {
@@ -38,6 +38,7 @@ const Paciente = ({ paciente }) => {
         <button
           type="button"
           className="bg-slate-600 py-2 px-10 rounded-xl text-white font-bold uppercase hover:bg-slate-800"
+          onClick={() => eliminarPaciente(_id)}
         >
           Eliminar
         </button>

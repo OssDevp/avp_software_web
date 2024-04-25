@@ -30,9 +30,8 @@ export const PacientesProvider = ({ children }) => {
     obtenerPaciente();
   }, []);
 
-  const guardarPaciente = async (pacientes) => {
+  const guardarPaciente = async (paciente) => {
 
-    console.log(pacientes);
     const token = localStorage.getItem('token');
     const config = {
       headers: {
@@ -41,27 +40,51 @@ export const PacientesProvider = ({ children }) => {
       }
     }
 
-    if (pacientes.id) {
+    if (paciente.id) {
+
       try {
         const { data } = await clienteAxios.put(`/pacientes/${paciente.id}`, paciente, config);
+        //conecta a la api para actualizar el paciente en listado
+        const pacienteActualizado = pacientes.map(pacienteState => pacienteState._id === data._id ? data : pacienteState);
 
-        console.log(data);
+        setPacientes(pacienteActualizado);
+
       } catch (error) {
-        try {
-          const { data } = await clienteAxios.post('/pacientes', pacientes, config);
-          const { createdAt, updatedAt, __v, ...pacienteAlmacenado } = data;
-          setPacientes([pacienteAlmacenado, ...pacientes]);
-        } catch (error) {
-          console.log(error);
-        }
+        console.log(error);
       }
-      return
+    } else {
+      try {
+        const { data } = await clienteAxios.post('/pacientes', pacientes, config);
+        const { createdAt, updatedAt, __v, ...pacienteAlmacenado } = data;
+        setPacientes([pacienteAlmacenado, ...pacientes]);
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 
   const setEdicion = (paciente) => {
-    // setPacientes(pacientes.map((pacienteState) => pacienteState._id === paciente._id ? paciente : pacienteState))
     setPaciente(paciente);
+  }
+
+  const eliminarPaciente = async id => {
+    const confirmar = confirm('¿Deseas eliminar este paciente?');
+    if (confirmar) {
+      try {
+        const token = localStorage.getItem('token');
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          }
+        }
+        const { data } = await clienteAxios.delete(`/pacientes/${id}`, config);
+        const pacienteActualizado = pacientes.filter(pacienteState => pacienteState._id !== id);
+        setPacientes(pacienteActualizado);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 
   return (
@@ -70,7 +93,8 @@ export const PacientesProvider = ({ children }) => {
         pacientes,
         guardarPaciente,
         setEdicion,
-        paciente
+        paciente,
+        eliminarPaciente
       }}
     >
       {children}
