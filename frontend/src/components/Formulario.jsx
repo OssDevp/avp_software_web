@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Alerta from "./Alerta";
 import usePacientes from "../hook/usePacientes";
 
@@ -8,10 +8,23 @@ const Formulario = () => {
   const [email, setEmail] = useState('');
   const [fecha, setFecha] = useState('');
   const [sintomas, setSintomas] = useState('');
+  const [id, setId] = useState('');
 
   const [alerta, setAlerta] = useState({});
 
-  const { guardarPaciente } = usePacientes();
+  const { guardarPaciente, paciente } = usePacientes();
+
+  console.log(paciente);
+  useEffect(() => {
+    if (paciente?.nombre) {
+      setNombre(paciente.nombre)
+      setPropietario(paciente.propietario)
+      setEmail(paciente.email)
+      setFecha(paciente.fecha)
+      setSintomas(paciente.sintomas)
+      setId(paciente._id)
+    }
+  }, [paciente])
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -37,7 +50,8 @@ const Formulario = () => {
       propietario,
       email,
       fecha,
-      sintomas
+      sintomas,
+      id
     })
   }
 
@@ -125,7 +139,7 @@ const Formulario = () => {
         <input
           type="submit"
           className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-colors"
-          value="Registrar Cita"
+          value={id ? "Guardar Cita" : "Registrar Cita"}
         />
       </form>
       <div className="mt-5">
