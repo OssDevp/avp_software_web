@@ -10,7 +10,9 @@ const ListadoPacientes = () => {
         (
           <>
             <h2 className="font-black text-3xl text-center">Listado de Pacientes</h2>
-            <p className="text-xl mt-5 mb-10 text-center">Administra tus {''}<span className="text-indigo-800 font-bold">Pacientes y Citas</span></p>
+            <p className="text-center text-lg mb-10 font-bold">
+              Administra tus <span className="text-indigo-800">Pacientes y Citas</span>
+            </p>
             {pacientes.map(paciente => (
               <Paciente
                 key={paciente._id}

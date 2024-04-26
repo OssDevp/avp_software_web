@@ -3,7 +3,8 @@ import checkAuth from "../middleware/middleware.js";
 import {
   registrar, perfil, confirmar,
   autenticar, olvidePassword,
-  comprobarToken, nuevoPassword
+  comprobarToken, nuevoPassword,
+  actualizarPerfil, actualizarPassword
 } from "../controllers/veterinarioController.js";
 
 
@@ -21,5 +22,7 @@ router.post("/olvide-password", olvidePassword);
 router.route("/olvide-password/:token").get(comprobarToken).post(nuevoPassword);
 //privada
 router.get("/perfil", checkAuth, perfil);
+router.put("/perfil:id", checkAuth, actualizarPerfil);
+router.put("/actualizar-password", checkAuth, actualizarPassword);
 
 export default router;

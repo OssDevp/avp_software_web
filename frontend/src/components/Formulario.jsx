@@ -65,8 +65,9 @@ const Formulario = () => {
 
   return (
     <>
+      <h2 className="font-black text-3xl text-center">Formulario de Pacientes</h2>
       <p className="text-center text-lg mb-10 font-bold">
-        Añade tus pacientes y <span className="text-indigo-600">Administralos</span>
+        Añade tus pacientes y <span className="text-indigo-800">Administralos</span>
       </p>
       <form
         className="bg-white py-10 px-5 mb-10 lg:mb-0 shadow rounded-md"
@@ -144,7 +145,7 @@ const Formulario = () => {
 
         <input
           type="submit"
-          className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-colors"
+          className="bg-indigo-800 w-full p-3 text-white uppercase font-bold hover:bg-indigo-900 cursor-pointer transition-colors"
           value={id ? "Guardar Cita" : "Registrar Cita"}
         />
       </form>

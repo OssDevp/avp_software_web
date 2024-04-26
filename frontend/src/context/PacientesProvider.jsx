@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import clienteAxios from "../config/Axios";
+import useAuth from "../hook/useAuth";
 
 const PacientesContext = createContext();
 
@@ -7,6 +8,8 @@ export const PacientesProvider = ({ children }) => {
 
   const [pacientes, setPacientes] = useState([]);
   const [paciente, setPaciente] = useState({});
+
+  const { auth } = useAuth();
 
   useEffect(() => {
     const obtenerPaciente = async () => {
@@ -28,7 +31,7 @@ export const PacientesProvider = ({ children }) => {
     }
 
     obtenerPaciente();
-  }, []);
+  }, [auth]);
 
   const guardarPaciente = async (paciente) => {
 
