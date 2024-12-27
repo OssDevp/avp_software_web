@@ -24,7 +24,7 @@ const registrar = async (req, res) => {
       nombre,
       token: veterinarioGuardado.token
     })
-    res.json(veterinarioGuardado);
+    res.json({msg: "Verifique su correo para confirmar"});
   } catch (error) {
     console.log(error);
   }

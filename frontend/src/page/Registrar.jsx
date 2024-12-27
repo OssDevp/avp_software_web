@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import clienteAxios from "../config/Axios";
 import Alerta from "../components/Alerta";
 
@@ -11,6 +11,7 @@ const Registrar = () => {
 
   const [alerta, setAlerta] = useState({});
 
+  const navigate = useNavigate();
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -38,6 +39,7 @@ const Registrar = () => {
 
       setTimeout(() => {
         setAlerta({});
+        navigate('/')
       }, 3000)
     } catch (error) {
       setAlerta({
@@ -48,6 +50,7 @@ const Registrar = () => {
         setAlerta({});
       }, 3000)
     }
+
 
   }
 

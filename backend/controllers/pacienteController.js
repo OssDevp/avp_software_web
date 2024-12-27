@@ -1,14 +1,11 @@
 import Pacientes from "../models/Pacientes.js";
 
 const agregarPaciente = async (req, res) => {
-
   const paciente = new Pacientes(req.body);
   paciente.veterinario = req.veterinario._id;
   try {
-
     const pacienteGuardado = await paciente.save();
     res.json(pacienteGuardado);
-
   } catch (error) {
     console.log(error);
   }
@@ -32,7 +29,7 @@ const obtenerPaciente = async (req, res) => {
   }
 
   if (paciente.veterinario.toString() !== req.veterinario._id.toString()) {
-    return res.json({ msg: "Acción no válida" })
+    return res.json({ msg: "Acción no válida" });
   }
 
   res.json(paciente);
@@ -48,7 +45,7 @@ const actualizarPaciente = async (req, res) => {
   }
 
   if (paciente.veterinario.toString() !== req.veterinario._id.toString()) {
-    return res.json({ msg: "Acción no válida" })
+    return res.json({ msg: "Acción no válida" });
   }
   //actualizar paciente
   paciente.nombre = req.body.nombre || paciente.nombre;
@@ -74,7 +71,7 @@ const eliminarPaciente = async (req, res) => {
   }
 
   if (paciente.veterinario.toString() !== req.veterinario._id.toString()) {
-    return res.json({ msg: "Acción no válida" })
+    return res.json({ msg: "Acción no válida" });
   }
 
   try {
@@ -83,15 +80,12 @@ const eliminarPaciente = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-
 };
-
-
 
 export {
   agregarPaciente,
   obtenerPacientes,
   obtenerPaciente,
   actualizarPaciente,
-  eliminarPaciente
+  eliminarPaciente,
 };
